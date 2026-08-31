@@ -11,7 +11,7 @@
           </v-card-title>
           <v-card-text>
             <v-text-field
-              v-model="account"
+              v-model="userId"
               label="帳號"
             />
             <v-text-field
@@ -51,18 +51,22 @@ import { useAuthStore } from "@/stores/auth"
 const router = useRouter()
 const auth = useAuthStore()
 
-const account = ref("admin")
+const userId = ref("admin")
 const password = ref("123456")
 const loading = ref(false)
 const errorMsg = ref("")
 
 async function onLogin() {
+  const payload = {
+    userId: userId.value,
+    password: password.value,
+  }
   errorMsg.value = ""
   loading.value = true
   try {
-    await auth.login(account.value, password.value)
+    await auth.login(payload)
     router.push("/")
-  } catch (err) {
+  } catch (error) {
     errorMsg.value = "登入失敗，請確認帳號密碼"
   } finally {
     loading.value = false
