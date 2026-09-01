@@ -14,7 +14,7 @@ export interface MenuItem {
   text: string
   value: string
   subMenu?: MenuItem[]
-  secMenu?: MenuItem[]
+  subMenu?: MenuItem[]
 }
 
 export type AuthType = 'BH' | 'BS' | 'SM' | 'MB' | 'BM'
@@ -45,7 +45,7 @@ const accordionMenu: Record<AuthType, MenuItem[]> = {
         {
           text: '當日沖正交易',
           value: 'sameDayReversal',
-          secMenu: [
+          subMenu: [
             { text: '開狀沖正(EC)', value: 'amendLcApp' },
             { text: '修狀沖正(EC)', value: 'currentAmendApp' },
             { text: '註銷信用狀沖正(EC)', value: 'currentCancelApp' },
@@ -57,7 +57,7 @@ const accordionMenu: Record<AuthType, MenuItem[]> = {
         {
           text: '當日調整帳務',
           value: 'sameDayAdjustment',
-          secMenu: [
+          subMenu: [
             { text: '開狀申請當日調整帳務', value: 'lcAdjustment' },
             { text: '修改申請當日調整帳務', value: 'amendAdjustment' },
             { text: '註銷申請當日調整帳務', value: 'cancelAdjustment' },
@@ -139,7 +139,7 @@ const accordionMenu: Record<AuthType, MenuItem[]> = {
         {
           text: '當日沖正交易',
           value: 'sameDayReversal',
-          secMenu: [
+          subMenu: [
             { text: '開狀沖正(EC)', value: 'amendLcApp' },
             { text: '修狀沖正(EC)', value: 'currentAmendApp' },
             { text: '註銷信用狀沖正(EC)', value: 'currentCancelApp' },
@@ -151,7 +151,7 @@ const accordionMenu: Record<AuthType, MenuItem[]> = {
         {
           text: '當日調整帳務',
           value: 'sameDayAdjustment',
-          secMenu: [
+          subMenu: [
             { text: '開狀申請當日調整帳務', value: 'lcAdjustment' },
             { text: '修改申請當日調整帳務', value: 'amendAdjustment' },
             { text: '註銷申請當日調整帳務', value: 'cancelAdjustment' },

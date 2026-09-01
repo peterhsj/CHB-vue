@@ -29,6 +29,21 @@ const routes = [
         name: "inbox",
         component: () => import("@/views/InboxView.vue"),
       },
+      {
+        path: "lcApp",
+        name: "lcApp",
+        component: () => import("@/views/LcAppView.vue"),
+      },
+      {
+        path: "lcAdjustment",
+        name: "lcAdjustment",
+        component: () => import("@/views/LcAdjustmentView.vue"),
+      },
+      {
+        path: "amendAdjustment",
+        name: "amendAdjustment",
+        component: () => import("@/views/AmendAdjustmentView.vue"),
+      }
     ],
   },
   {
@@ -48,7 +63,6 @@ router.beforeEach((to: RouteLocationNormalized) => {
   auth.hydrateAuthFromStorage()
 
   const requiresAuth = to.matched.some(r => r.meta.requiresAuth === true)
-  console.log('to.path=', to.path, 'requiresAuth=', requiresAuth)
 
   if (requiresAuth && !auth.isAuthenticated) return "/login"
   if (to.path === "/login" && auth.isAuthenticated) return "/"

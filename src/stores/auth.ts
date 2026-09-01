@@ -14,7 +14,6 @@ export const useAuthStore = defineStore("auth", () => {
 
   function hydrateAuthFromStorage () {
     const t = getAccessToken()
-    console.log('Hydrating auth from storage, token:', t , 'isExpired:', isExpired())
     if (!t || isExpired()) {
       token.value = ''
       clearToken()
