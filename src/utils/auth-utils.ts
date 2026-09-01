@@ -33,5 +33,6 @@ export function redirectToLogin (): void {
   clearToken()
   localStorage.removeItem('user_name')
   localStorage.removeItem('auth_type')
+  localStorage.removeItem('user_branches')
   window.location.href = '/login'
 }

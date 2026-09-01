@@ -44,8 +44,13 @@ const router = createRouter({
 
 // 路由守衛：未登入導向登入頁
 router.beforeEach((to: RouteLocationNormalized) => {
-  const auth = useAuthStore()
-  if (to.meta.requiresAuth && !auth.isAuthenticated) return "/login"
+  const auth = useAuthStore()  
+  auth.hydrateAuthFromStorage()
+
+  const requiresAuth = to.matched.some(r => r.meta.requiresAuth === true)
+  console.log('to.path=', to.path, 'requiresAuth=', requiresAuth)
+
+  if (requiresAuth && !auth.isAuthenticated) return "/login"
   if (to.path === "/login" && auth.isAuthenticated) return "/"
   return true
 })
