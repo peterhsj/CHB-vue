@@ -11,6 +11,7 @@
         {{ prop.item.text }}
       </v-list-item>
     </template>
+    <v-divider />
     <MenuGroup
       v-for="sub in prop.item.subMenu"
       :key="sub.value"
