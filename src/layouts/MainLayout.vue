@@ -96,8 +96,14 @@ const currentItem = ref<string | null>(null) // 當前選項
 const mainMenu = ref<string | null>(null) // 第一層選單
 const currentSecMenu = ref<string | null>(null) // 第二層選單
 
+// 登出
+function onLogout() {
+  auth.logout()
+  router.push("/login")
+}
+
 // 選單項目選擇處理函式
-const toRoutePath = (item: string) => (item === 'home' ? '/' : item)
+const toRoutePath = (pathName: string) => (pathName === 'home' ? '/' : pathName)
 
 function selectedHandler (value: string): void {
   nextTick(() => {
@@ -151,19 +157,12 @@ function findMenuPath (
   return null
 }
 
-// 登出
-function onLogout() {
-  auth.logout()
-  router.push("/login")
-}
-
 /**
  * 初始化選單狀態
  * 主選單: foundPath.mainMenu,
  * 子選單: foundPath.subMenu,
  * 依目前 route 還原選單: pathValue,
  */
-
 function pathToMenuValue (path: string): string {
   return path === 'home' ? '/' : path.replace(/^\//, '')
 }
@@ -172,7 +171,7 @@ function initMenuState (): void {
   const pathValue = pathToMenuValue(route.path)
   const foundPath = findMenuPath(pathValue)
 
-  currentItem.value = pathValue
+  currentItem.value = pathValue === '' ? 'home' : pathValue
   mainMenu.value = foundPath?.mainMenu ?? pathValue
   currentSecMenu.value = foundPath?.subMenu ?? ''
 

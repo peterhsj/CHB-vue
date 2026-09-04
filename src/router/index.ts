@@ -30,19 +30,19 @@ const routes = [
         component: () => import("@/views/InboxView.vue"),
       },
       {
-        path: "lcApp",
-        name: "lcApp",
-        component: () => import("@/views/LcAppView.vue"),
+        path: "importAcceptLcApp",
+        name: "importAcceptLcApp",
+        component: () => import("@/views/ImportAcceptLcAppView.vue"),
       },
       {
-        path: "lcAdjustment",
-        name: "lcAdjustment",
-        component: () => import("@/views/LcAdjustmentView.vue"),
+        path: "importAcceptAmendApp",
+        name: "importAcceptAmendApp",
+        component: () => import("@/views/ImportAcceptAmendAppView.vue"),
       },
       {
-        path: "amendAdjustment",
-        name: "amendAdjustment",
-        component: () => import("@/views/AmendAdjustmentView.vue"),
+        path: "importAcceptCancelApp",
+        name: "importAcceptCancelApp",
+        component: () => import("@/views/ImportAcceptCancelAppView.vue"),
       }
     ],
   },

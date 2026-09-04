@@ -29,7 +29,7 @@ declare module 'axios' {
 export const $api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL ?? '/api',
   timeout: 30_000,
-  withCredentials: true, // 傳送 HttpOnly cookie（後端優先讀取 Authorization header）
+  // withCredentials: true, // 傳送 HttpOnly cookie（後端優先讀取 Authorization header）
   headers: {
     'Content-Type': 'application/json',
   },

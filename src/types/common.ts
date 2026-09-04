@@ -1,4 +1,5 @@
-export interface PageOptions {
+type LcTypeOption = 'sight' | 'usance' // 即期 / 遠期
+interface PageOptions {
   page: number
   itemsPerPage: number
   sortBy: {
@@ -9,25 +10,17 @@ export interface PageOptions {
 
 // ========== 以下未測試 ==========
 
-export interface ApiResponse<T = any> {
-  data?: T
-  message?: string
-  total?: number
-  amount?: number
-  success?: boolean
-}
-
 // ── 分頁選項 ──────────────────────────────────────────────────────────────────
-export interface PagedResult<T> {
+interface PagedResult<T> {
   data: T[]
   total: number
   message?: string
 }
-export interface PageQuery {
+interface PageQuery {
   pageIndex: number
   pageSize: number
 }
-export interface PageOptions {
+interface PageOptions {
   page: number
   itemsPerPage: number
   sortBy: {
@@ -35,9 +28,15 @@ export interface PageOptions {
     order?: 'asc' | 'desc'
   }[]
 }
-export interface SelectItem {
+interface SelectItem {
   readonly title: string
   readonly value: string
 }
 
-export type LcTypeOption = 'sight' | 'usance' // 即期 / 遠期
+export type {
+  LcTypeOption,
+  PagedResult,
+  PageOptions,
+  PageQuery,
+  SelectItem,
+}
