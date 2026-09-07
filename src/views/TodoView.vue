@@ -18,7 +18,10 @@
       待辦事項
     </h2>
     
-    <v-row dense>
+    <v-row
+      class="mx-4"
+      dense
+    >
       <v-col
         v-for="item in tableItems"
         :key="item.id"
