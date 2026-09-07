@@ -1,10 +1,15 @@
 import type { PageOptions } from '@/types/common'
 import { apiRequest } from "@/api/api-service"
 import { computed, onMounted, ref } from "vue"
+import { useAuthStore } from '@/stores/auth'
+import { useMenu } from '@/composables/useMenu'
+
+const { authType } = useAuthStore()  
 
 interface ListItem {
   id: number
   title: string
+  path?: string
   count: number
 }
 
@@ -33,11 +38,24 @@ export function useTodo() {
         pageSize: itemsPerPage,
       }
 
-      const res = await apiRequest.post<ListItem[]>('/todo/list', payload)
-      const { success, data, total } = res
+      const res = await apiRequest.post('/todo/list', payload)
+      const { success, data, total } = res as { success: boolean, data: ListItem[], total: number }
       if (success) {
-        tableItems.value = data ?? []
+        // 從 data.title 比對 useMenu 中的菜單項並找出對應的value值轉換成path
+        const { getPathByTitle } = useMenu(authType)
+        const updatedData = data.map(item => {
+          const newItem = { ...item } 
+          const path = getPathByTitle(newItem.title)
+          console.log('[useTodo/fetchList] Mapping path:', path)
+          if (path) {
+            newItem.path = path
+          }
+          return newItem
+        })
+
+        tableItems.value = updatedData ?? []
         totalCount.value = total ?? 0
+        console.log('[useTodo/fetchList]', tableItems.value)
       } else {
         console.error('[useQueryAmendApp/searchHandler]', res.message, res.errors)
       }

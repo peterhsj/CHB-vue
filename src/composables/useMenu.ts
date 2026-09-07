@@ -365,5 +365,39 @@ export function useMenu (authType: AuthType) {
   const showTodoList = computed(() => authType !== 'SM' && authType !== 'MB' && authType !== 'BM')
   const showInfo = computed(() => authType !== 'MB' && authType !== 'BM')
 
-  return { currentMenu, showTodoList, showInfo }
+  // 根據選單項的標題取得對應的路徑值
+  function getPathByTitle(title: string): string | undefined {
+    const visited = new Set(); // 每次全新查詢時，建立一個獨立的安全鎖
+    
+    // 內層遞迴函數：真正執行尋找邏輯
+    function search(list: MenuItem[]): string | null {
+      if (!list || !Array.isArray(list)) return null;
+
+      for (const item of list) {
+        // 💡 安全鎖：防止 menuData 的子項目在響應式系統中產生循環引用
+        if (visited.has(item)) {
+          console.warn('[安全攔截] 偵測到重複引用的物件，已自動跳過，避免死循環。', item);
+          continue;
+        }
+        visited.add(item); // 標記已處理
+
+        // 1. 比對標題
+        if (item.text === title) {
+          return item.value;
+        }
+
+        // 2. 遞迴子選單
+        if (item.subMenu && item.subMenu.length > 0) {
+          const foundValue = search(item.subMenu); // 呼叫內層自己
+          if (foundValue) return foundValue;
+        }
+      }
+      return null;
+    }
+
+    // 啟動查詢：直接把現成的 menuData 帶入內層函數
+    return search(currentMenu.value) ?? undefined;
+  }
+
+  return { currentMenu, showTodoList, showInfo, getPathByTitle }
 }

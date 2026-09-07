@@ -4,7 +4,7 @@
  */
 export interface ApiResponse<T = unknown> {
   success: boolean
-  message: string
+  message?: string
   data?: T
   total?: number
   pageTotalAmount?: number

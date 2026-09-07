@@ -1,4 +1,6 @@
 @use "./variables.scss";
+$default-yellow: #ffcf00;
+$default-red: #d51524;
 
 html, body, #app {
   height: 100%;
@@ -16,3 +18,34 @@ body {
 .login-page {
   background: linear-gradient(135deg, #f7fafc 0%, #e8eef8 100%);
 }
+
+.chb {
+  &__bg {
+    &--yellow {
+      background: $default-yellow;
+    }
+    &--red {
+      background: $default-red;
+    }
+  }
+  &__text {
+    &--yellow {
+      color: $default-yellow;
+    }
+    &--red {
+      color: $default-red;
+    }
+  }
+
+  &__title {
+    margin: 0.5rem 1rem 1.25rem;
+    padding-left: 0.45rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    letter-spacing: 0.12rem;
+    color: $default-red;
+    border-left: 0.45rem solid $default-red;
+  }
+}
+

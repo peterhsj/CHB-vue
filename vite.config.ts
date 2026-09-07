@@ -30,10 +30,10 @@ export default defineConfig(({ mode }) => {
       // },
       proxy: {
         '/api': {
-          target: 'http://localhost:8080',
+          target: 'http://localhost:5143',
           changeOrigin: true,
           secure: false, // https 自簽章時常用
-          // rewrite: (path) => path.replace(/^\/api/, ''), // 後端若不含 /api 前綴就打開
+          rewrite: (path) => path.replace(/^\/api/, ''), // 後端若不含 /api 前綴就打開
         },
       }
     },

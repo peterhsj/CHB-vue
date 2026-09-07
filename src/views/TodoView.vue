@@ -13,49 +13,63 @@
         />
       </template>
     </v-breadcrumbs>
-    <v-card>
-      <v-card-title>待辦事項</v-card-title>
-      <v-card-text>
-        <v-list density="compact">
-          <v-list-item
-            v-for="item in tableItems"
-            :key="item.id"
-          >
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-            <v-list-item-subtitle>{{ item.count }}</v-list-item-subtitle>
-          </v-list-item>
-        </v-list>
-      </v-card-text>
-    </v-card>
+    
+    <h2 class="chb__title">
+      待辦事項
+    </h2>
+    
+    <v-row dense>
+      <v-col
+        v-for="item in tableItems"
+        :key="item.id"
+        cols="12"
+        md="4"
+        lg="3"
+      >
+        <v-card
+          color="orange-lighten-5"
+          density="compact"
+          elevation="0"
+          rounded="lg"
+          variant="flat"
+          :to="item.path ?? '/'"       
+        >
+          <v-card-item>
+            <v-card-text
+              class="d-flex align-center justify-space-between px-2"
+            >
+              <!-- 文字標題 -->
+              <span class="mr-1 text-body-large font-weight-bold">{{ item.title }}</span>
+              
+              <!-- Inline Badge 顯示數量 -->
+              <v-badge
+                :content="item.count"
+                color="red-darken-3"
+                inline
+              />
+            </v-card-text>
+          </v-card-item>
+        </v-card>
+      </v-col>
+    </v-row>
+    <!-- 共用元件 -->
+    <CommonOverlay :overlay="loading" />
   </div>
 </template>
 
 <script setup lang="ts">
   import { computed } from 'vue'
-  // import { useAuthStore } from '@/stores/auth'
-  // import { useRoute } from 'vue-router'
   import { useTodo } from '@/composables/useTodo'
+  import CommonOverlay from '@/components/CommonOverlay.vue'
   
-  // 取得 authType
-  // const { authType } = useAuthStore()  
-  // 透過 route.path 取得當前路由
-  // const route = useRoute()
-  
-  const { tableItems } = useTodo()
-  // 取得 useMenu.ts 中本頁面對應的菜單項產生對應的麵包屑導航
-  // import { useMenu } from '@/composables/useMenu'
-  // const { getMenuByPath } = useMenu(authType)
-  // const menuItem = getMenuByPath(route.path.slice(1))
+  const { tableItems, loading } = useTodo()
 
-  // 取得當前路由的麵包屑導航
+  //取得當前路由的麵包屑導航
   const breadcrumbItems = computed(() => {
     const items = [
       { title: '首頁', disabled: false, href: '/' },
       { title: '待辦事項', disabled: true }
     ]
-    // if (menuItem) {
-    //   items.push({ text: menuItem, disabled: true })
-    // }
     return items
   })
 </script>

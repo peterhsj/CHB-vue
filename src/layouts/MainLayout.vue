@@ -35,7 +35,7 @@
       </div>
     </v-app-bar>
 
-    <!-- 側邊選單 -->
+    <!-- 側邊選單 -->     
     <v-navigation-drawer
       v-model="drawer"
       color="grey-lighten-2"
@@ -71,7 +71,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { apiRequest } from "@/api/api-service"
 import { useRoute, useRouter } from "vue-router"
 import { useMenu } from '@/composables/useMenu'
 import type { MenuItem, MenuPathResult } from '@/composables/useMenu'
@@ -79,6 +80,8 @@ import { useAuthStore } from "@/stores/auth"
 import { useDisplay } from 'vuetify'
 import MenuGroup from '@/components/MenuGroup.vue'
 
+
+const loading = ref(false)
 const router = useRouter()
 const route = useRoute()
 const auth = useAuthStore()
@@ -91,10 +94,35 @@ const drawer = computed({
 })  
 
 const { currentMenu } = useMenu(auth.authType)
+// const currentMenu = ref<MenuItem[] | null>(null)
 const open = ref<string[]>([]) // 展開的選單項目值列表
 const currentItem = ref<string | null>(null) // 當前選項
 const mainMenu = ref<string | null>(null) // 第一層選單
 const currentSecMenu = ref<string | null>(null) // 第二層選單
+
+// 取得後端回傳的選單資料 localhost:5143/me/menus
+async function fetchMenuData() {
+  // 這裡可以使用 fetch 或 axios 向後端請求選單資料
+  // 例如: fetch('http://localhost:5143/me/menus').then(res => res.json()).then(data => { ... })
+  loading.value = true
+  try {
+    const res = await apiRequest.get('/me/menus')
+    console.log('[fetchMenuData] Response:', res)
+    const { success, data } = res as { success: boolean, data: MenuItem[],}
+    if (success) {        
+        console.log('[fetchMenuData]', data)
+        currentMenu.value = data
+      } else {
+        console.error('[useQueryAmendApp/searchHandler]', res.message, res.errors)
+      }
+    } finally {
+      loading.value = false
+    }
+}
+
+onMounted(() => {
+  fetchMenuData()
+})
 
 // 登出
 function onLogout() {
