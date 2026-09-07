@@ -47,6 +47,7 @@
               <!-- Inline Badge 顯示數量 -->
               <v-badge
                 :content="item.count"
+                class="chb__badge"
                 color="red-darken-3"
                 inline
               />
