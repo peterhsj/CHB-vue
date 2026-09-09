@@ -2,12 +2,12 @@
   <div>
     <!-- 使用麵包屑導航 -->
     <v-breadcrumbs
-      class="my-0"
+      class="my-0 pt-1"
       :items="breadcrumbItems"
     >
       <template #prepend>
         <v-icon
-          color="primary"
+          color="teal-darken-2"
           icon="mdi-map-outline"
           size="small"
         />
@@ -20,7 +20,6 @@
     
     <v-row
       class="mx-4"
-      dense
     >
       <v-col
         v-for="item in tableItems"
@@ -64,7 +63,7 @@
 <script setup lang="ts">
   import { computed } from 'vue'
   import { useTodo } from '@/composables/useTodo'
-  import CommonOverlay from '@/components/CommonOverlay.vue'
+  import CommonOverlay from '@/components/common/CommonOverlay.vue'
   
   const { tableItems, loading } = useTodo()
 

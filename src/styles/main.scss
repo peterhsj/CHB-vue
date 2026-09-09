@@ -1,10 +1,24 @@
 @use "./variables.scss";
 $default-yellow: #ffcf00;
-$default-red: #d51524;
+$default-red: #D84315;
 
-html, body, #app {
+html,
+body,
+#app {
   height: 100%;
   margin: 0;
+  font-family: var(--font-cjk), var(--font-emoji);
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  font-synthesis: none;
+  // background-color: #F5F5F5;
+  /* 避免瀏覽器自行合成粗/斜體 */
+}
+
+#app {
+  height: 100vh;
+  height: 100dvh;
 }
 
 body {
@@ -57,6 +71,163 @@ body {
     letter-spacing: 0.12rem;
     color: $default-red;
     border-left: 0.45rem solid $default-red;
+  }
+  
+  // 表格
+  &__table {
+    background-color: #FFFFFF;
+    border: 1px solid #adadad;
+
+    > .v-data-table-footer {
+      background-color: #FFF8E1;
+      border-top: 2px solid #E0E0E0;
+    }
+
+    table {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    th {
+      background-color: rgb(255, 207, 0);
+      border-left: 1px solid rgb(255, 207, 0);
+      border-bottom: 1px solid rgb(255, 207, 0) !important;
+      color: #333333;
+
+      // &:hover, &:focus {
+      //   color: #FFFFFF !important;
+      // }
+    }
+
+    th:not(:first-child),
+    td:not(:first-child),
+    &--left-border {
+      border-left: 1px solid #adadad;
+      // border-bottom: 1px solid #90bcbe !important;
+    }
+
+    th, td {
+      padding: 8px 12px !important;
+    }
+
+    // Table 編排
+    &--layout {
+
+      th:not(:first-child),
+      td:not(:first-child),
+      &--left-border {
+        // border-left: 1px solid #90bcbe;
+        border-bottom: 1px solid #90bcbe !important;
+      }
+
+      th, td {
+        padding: 8px 12px !important;
+        border-bottom: 1px solid #90bcbe !important;
+      }
+    }
+
+    // 垂直表格
+    &--vertical {
+      border-top: 2px solid #90bcbe;
+      border-right: 2px solid #90bcbe;
+
+      th {
+        background-color: #e7f7f8;
+        color: #333333;
+      }
+
+      // th:not(:first-child),
+      // td:not(:first-child),
+      // &--left-border {
+      //   // border-left: 1px solid #90bcbe !important;
+      //   border-bottom: 1px solid #90bcbe !important;
+      // }
+
+      th, td {
+        padding: 8px 12px !important;
+        border-left: 1px solid #90bcbe !important;
+        border-bottom: 1px solid #90bcbe !important;
+      }
+    }
+  }
+
+  
+  &__btn {
+    &--red {
+      background-color: #b3000e;
+      color: #fff;
+      // height: 32px;
+      &:hover {
+        background-color: #df0011;
+      }
+    }
+
+    
+    &--default {
+      background-color: #FFA000;
+      // border: 1px solid #e49116;
+      color: #ffffff;
+      font-weight: normal;
+      &:hover {
+        background-color: #f19a18;
+      }
+    }
+
+    // &--default {
+    //   background-color: #13989e !important;
+    //   border: 1px solid #13989e;
+    //   color: #ffffff !important;
+    //   font-weight: normal;
+    //   // height: 32px !important;
+    //    &:hover {
+    //     background-color: #2fbcc2 !important;
+    //   }
+    // }
+
+    &--select {
+      background-color: #2fbcc2 !important;
+      border: 1px solid #207a7e;
+      color: #ffffff !important;
+      font-weight: normal;
+      // height: 32px !important;
+       &:hover {
+        background-color: #16a8ae !important;
+      }
+    }
+
+    &--cancel {
+      background-color: #d3d3d3 !important;
+      border: 1px solid #d3d3d3;
+      color: #555555 !important;
+      font-weight: normal;
+      // height: 32px !important;
+       &:hover {
+        background-color: #e5e5e5 !important;
+        color: #333333 !important;
+      }
+    }
+  }  
+
+  // 視窗
+  &__dialog {
+    border: 5px solid $default-red;
+    border-radius: 1.25rem !important;
+
+    &--title {      
+      color: $default-red;
+      border-left: 0.45rem solid $default-red;
+      font-size: 1.1rem;
+      font-weight: 500;
+      padding-left: 1rem;
+    }
+  }
+}
+
+.v-btn--disabled {
+  &.chb__btn--default { 
+    .v-btn__overlay {
+      opacity: 0.4;
+      background-color: #ffffff;
+    }
   }
 }
 

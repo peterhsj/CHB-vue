@@ -1,3 +1,14 @@
 :root {
-  --app-bg: #f5f7fb;
+  --app-bg: #FFFFFF; // #f5f7fb;
+
+  /* 中文優先：Noto Sans TC 含良好拉丁字形，可維持整體一致 */
+  --font-cjk:
+    'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', 'Heiti TC', 'Hiragino Sans TC', Arial,
+    sans-serif;
+
+  /* 補充：Emoji */
+  --font-emoji: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji';
+
+  --v-font-body: var(--font-cjk), var(--font-emoji);
+  --v-font-heading: var(--font-cjk), var(--font-emoji);
 }

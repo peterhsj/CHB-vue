@@ -121,7 +121,7 @@ async function fetchMenuData() {
 }
 
 onMounted(() => {
-  fetchMenuData()
+  // fetchMenuData()
 })
 
 // 登出
