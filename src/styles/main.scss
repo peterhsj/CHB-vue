@@ -34,6 +34,24 @@ body {
 }
 
 .chb {
+  &__layout {
+    &--appbar {
+      padding: 0px 16px;
+      background-color: $default-yellow;
+      border-bottom: 5px solid $default-red;
+    }
+  }
+
+  &__logo {
+    &--title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-left: 1rem;
+      letter-spacing: 0.08rem;
+      color: #333;
+    }
+  }
+
   &__bg {
     &--yellow {
       background: $default-yellow;
@@ -71,6 +89,33 @@ body {
     letter-spacing: 0.12rem;
     color: $default-red;
     border-left: 0.45rem solid $default-red;
+  }
+
+  // 選單
+  &__menu {
+    &--open {
+      > .v-list-group__header {
+        background-color:  #fdb177 !important;
+      }
+
+      .chb__menu--open {
+        > .v-list-group__header {
+          background-color:  #facba6 !important;
+        }
+      }
+    }
+
+    .v-list-item__append {
+      color: $default-red; // Example style for list item append text
+    }
+  }
+
+  &__menuItem {
+    // background-color: #fff !important;
+
+    &--active {
+      background-color: #fff !important;
+    }
   }
   
   // 表格
@@ -233,5 +278,15 @@ body {
       background-color: #ffffff;
     }
   }
+}
+
+.mdi-chevron-up::before {
+    content: "\F0143";
+    -webkit-text-stroke: 1px $default-red; /* 寬度可依需求調整為 0.5px, 1.5px 等 */
+}
+
+.mdi-chevron-down::before {
+    content: "\F0140";
+    -webkit-text-stroke: 1px $default-red; /* 寬度可依需求調整為 0.5px, 1.5px 等 */
 }
 

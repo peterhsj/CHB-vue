@@ -5,6 +5,7 @@
     :class="[prop.open.includes(prop.item.value) ? 'chb__menu--open' : '']"
     density="compact"
     :value="prop.item.value"
+    color="primary"
   >
     <template #activator="{ props }">
       <v-list-item v-bind="props">
@@ -25,6 +26,8 @@
   <v-list-item
     v-else
     :active="prop.currentItem === prop.item.value"
+    class="chb__menuItem"
+    :class="[prop.currentItem === prop.item.value ? 'chb__menuItem--active' : '']"
     :value="prop.item.value"
     @click="emit('select', prop.item.value)"
   >
