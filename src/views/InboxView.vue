@@ -51,7 +51,6 @@
         density="compact"
         fixed-header
         :headers="tableHeaders"
-        :height="tableHeight"
         hide-default-footer
         item-value="id"
         :items="tableItems"
@@ -62,6 +61,7 @@
         sort-desc-icon="mdi-sort-descending"
         sort-icon="mdi-swap-vertical"
         striped="odd"
+        :style="{ 'max-height': tableHeight }"
         @update:items-per-page="pageOptions.itemsPerPage = $event"
       >
         <template #item.content="{ item }">

@@ -37,5 +37,8 @@ export default defineConfig(({ mode }) => {
         },
       }
     },
+    build: {
+      sourcemap: true // 開啟後，打包檔就能對應回原始碼
+    },
   }
 })

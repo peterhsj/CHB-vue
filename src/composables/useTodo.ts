@@ -46,7 +46,7 @@ export function useTodo() {
         const updatedData = data.map(item => {
           const newItem = { ...item } 
           const path = getPathByTitle(newItem.title)
-          console.log('[useTodo/fetchList] Mapping path:', path)
+          // console.log('[useTodo/fetchList] Mapping path:', path)
           if (path) {
             newItem.path = path
           }
@@ -55,7 +55,7 @@ export function useTodo() {
 
         tableItems.value = updatedData ?? []
         totalCount.value = total ?? 0
-        console.log('[useTodo/fetchList]', tableItems.value)
+        // console.log('[useTodo/fetchList]', tableItems.value)
       } else {
         console.error('[useQueryAmendApp/searchHandler]', res.message, res.errors)
       }

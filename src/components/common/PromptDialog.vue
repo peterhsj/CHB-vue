@@ -1,6 +1,7 @@
 <template>
   <v-dialog
     v-model="show"
+    :close-on-back="false"
     persistent
     :width="messageWidth"
   >

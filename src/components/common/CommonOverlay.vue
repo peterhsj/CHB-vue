@@ -1,8 +1,9 @@
 <template>
   <v-overlay
     :model-value="props.overlay"
-    location="center"
+    :close-on-back="false"
     class="d-flex align-center justify-center"
+    location="center"
     persistent
   >
     <v-sheet

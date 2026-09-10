@@ -85,7 +85,7 @@ export function useInbox() {
       }
 
       const res = await apiRequest.post('/inbox/list', payload)
-      console.log('[useInbox/fetchList] Response:', res)
+      // console.log('[useInbox/fetchList] Response:', res)
       const { success, data, total } = res as { success: boolean, data: ListItem[], total: number }
       if (success) {
         tableItems.value = data ?? []
@@ -126,9 +126,9 @@ export function useInbox() {
   async function deleteSelected () {
     isLoading.value = true
     try {
-      console.log('[useInbox/delete] Selected items for deletion:', selectedItems.value)
+      // console.log('[useInbox/delete] Selected items for deletion:', selectedItems.value)
       const res = await apiRequest.post('/inbox/delete', { selectedItems: selectedItems.value })
-      console.log('[useInbox/delete] Response:', res)
+      // console.log('[useInbox/delete] Response:', res)
       const { success, message: messageText } = res as { success: boolean, message: string }
       if (success) {
         messageTitle.value = '訊息通知'

@@ -40,7 +40,7 @@
       <span v-if="props.isShowCurrentPageTotalAmount">
         <span class="text-red-darken-3"> / 本頁總金額：</span>
         NT$ {{ thousandsFormatting(props.totalPageAmount ?? 0) }}
-        <br />
+        <br>
       </span>
 
       <span v-if="props.isShowTotalPagePositiveBalanceAmount">
