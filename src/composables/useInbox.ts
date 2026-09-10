@@ -1,12 +1,7 @@
 import type { PageOptions } from '@/types/common'
 import { apiRequest } from "@/api/api-service"
 import { computed, onMounted, ref } from "vue"
-// import { useAuthStore } from '@/stores/auth'
-// import { useMenu } from '@/composables/useMenu'
-
-// const { authType } = useAuthStore()  
-
-interface ListItem {
+export interface ListItem {
   id: number
   title: string // 主旨
   // content: string
@@ -57,7 +52,7 @@ export function useInbox() {
   ]
   
   // 選中的項目
-  const selectedItems = ref<ListItem[]>([])
+  const selectedItems = ref<number[]>([])
 
   // 防止重複調用的標記
   const isSearching = ref(false)
@@ -162,6 +157,7 @@ export function useInbox() {
 
   return {
     isLoading,
+    // 列表及分頁相關
     tableHeaders,
     selectedItems,
     isSearching,
@@ -171,6 +167,7 @@ export function useInbox() {
     totalPages,
     tableHeight,
     gotoPage,
+    // 訊息通知相關狀態與方法
     messageDialog,
     messageWidth,
     messageTitle,

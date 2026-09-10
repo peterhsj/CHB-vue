@@ -1,5 +1,5 @@
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { apiRequest } from "@/api/api-service"
+import { computed, onMounted, ref, watch } from 'vue'
+// import { apiRequest } from "@/api/api-service"
 import { useRoute, useRouter } from "vue-router"
 import { useMenu } from '@/composables/useMenu'
 import type { MenuItem, MenuPathResult } from '@/composables/useMenu'
@@ -28,28 +28,28 @@ export function mainLayout() {
   const currentSecMenu = ref<string | null>(null) // 第二層選單
   
   // 取得後端回傳的選單資料 localhost:5143/me/menus
-  async function fetchMenuData() {
-    // 這裡可以使用 fetch 或 axios 向後端請求選單資料
-    // 例如: fetch('http://localhost:5143/me/menus').then(res => res.json()).then(data => { ... })
-    isLoading.value = true
-    try {
-      const res = await apiRequest.get('/me/menus')
-      console.log('[fetchMenuData] Response:', res)
-      const { success, data } = res as { success: boolean, data: MenuItem[],}
-      if (success) {        
-          console.log('[fetchMenuData]', data)
-          currentMenu.value = data
-        } else {
-          console.error('[useQueryAmendApp/searchHandler]', res.message, res.errors)
-        }
-      } finally {
-        isLoading.value = false
-      }
-  }
+  // async function fetchMenuData() {
+  //   // 這裡可以使用 fetch 或 axios 向後端請求選單資料
+  //   // 例如: fetch('http://localhost:5143/me/menus').then(res => res.json()).then(data => { ... })
+  //   isLoading.value = true
+  //   try {
+  //     const res = await apiRequest.get('/me/menus')
+  //     console.log('[fetchMenuData] Response:', res)
+  //     const { success, data } = res as { success: boolean, data: MenuItem[],}
+  //     if (success) {        
+  //         console.log('[fetchMenuData]', data)
+  //         currentMenu.value = data
+  //       } else {
+  //         console.error('[useQueryAmendApp/searchHandler]', res.message, res.errors)
+  //       }
+  //     } finally {
+  //       isLoading.value = false
+  //     }
+  // }
   
-  onMounted(() => {
-    // fetchMenuData()
-  })
+  // onMounted(() => {
+  //   fetchMenuData()
+  // })
   
   // 登出
   function onLogout() {
@@ -61,21 +61,19 @@ export function mainLayout() {
   const toRoutePath = (pathName: string) => (pathName === 'home' ? '/' : pathName)
   
   function selectedHandler (value: string): void {
-    // nextTick(() => {
-      const opened = open.value
-      const depth = opened.length
-  
-      if (depth === 0) {
-        mainMenu.value = value
-      } else if (depth === 1) {
-        mainMenu.value = opened[0] ?? null
-      } else {
-        mainMenu.value = opened[1] ?? null
-        currentSecMenu.value = opened[0] ?? null
-      }
-      currentItem.value = value
-      router.push(toRoutePath(value))
-    // })
+    const opened = open.value
+    const depth = opened.length
+
+    if (depth === 0) {
+      mainMenu.value = value
+    } else if (depth === 1) {
+      mainMenu.value = opened[0] ?? null
+    } else {
+      mainMenu.value = opened[1] ?? null
+      currentSecMenu.value = opened[0] ?? null
+    }
+    currentItem.value = value
+    router.push(toRoutePath(value))
   }
   
   // 根據選單項目值尋找對應的主選單和子選單

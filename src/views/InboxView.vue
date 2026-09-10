@@ -18,100 +18,20 @@
       訊息匣
     </h2>
 
-    <div class="mx-4 mb-3">      
-      <!-- 刪除已選取訊息按鈕：只有當有選取項目時才顯示 -->
-      <v-btn
-        class="chb__btn chb__btn--default"
-        :disabled="selectedItems.length === 0"
-        @click="deleteSelected"
-      >
-        <v-icon
-          class="mr-1"
-          left
-          icon="mdi-trash-can-outline"
-        />
-        刪除訊息
-        <span
-          v-if="selectedItems.length > 0"
-          class="ml-2"
-        >
-          ( {{ selectedItems.length }} )
-        </span>
-      </v-btn>
-    </div>
-    <v-card
-      class="border-sm pa-4 mx-4 bg-grey-lighten-4"
-      variant="outlined"
-    >      
-      <v-data-table
-        v-model="selectedItems"
-        v-model:items-per-page="pageOptions.itemsPerPage"
-        class="table-sm chb__table bg-white"
-        color="red-accent-4"
-        density="compact"
-        fixed-header
-        :headers="tableHeaders"
-        hide-default-footer
-        item-value="id"
-        :items="tableItems"
-        :loading="isLoading"
-        :page="pageOptions.page"
-        show-select
-        sort-asc-icon="mdi-sort-ascending"
-        sort-desc-icon="mdi-sort-descending"
-        sort-icon="mdi-swap-vertical"
-        striped="odd"
-        :style="{ 'max-height': tableHeight }"
-        @update:items-per-page="pageOptions.itemsPerPage = $event"
-      >
-        <template #item.content="{ item }">
-          <!-- 上傳修狀通知書-MT707 -->
-          <div v-if="item.title === '上傳修狀通知書-MT707'">
-            <span>信用狀號碼：</span>{{ item.lcNo }}
-            <br>
-            <span>通知日期：</span>{{ item.noticeDate }}
-          </div>
-
-          <div v-if="item.title === '繕製開狀通知書'">
-            <span>信用狀號碼：</span>{{ item.lcNo }}
-            <br>
-            <span>信用狀金額：</span>{{ item.lcAmount }}
-            <br>
-            <span>通知日期：</span>{{ item.noticeDate }}
-          </div>
-          
-          <div v-if="item.title === '繕製出口結匯通知'">
-            <span>信用狀號碼：</span>{{ item.lcNo }}
-            <br>
-            <span>受益人編號：</span>{{ item.beneficiaryId }}
-            <br>
-            <span>匯票號碼：</span>{{ item.draftNo }}
-            <br>
-            <span>結匯日期：</span>{{ item.settlementDate }}
-            <br>
-            <span>匯票金額：</span>{{ item.draftAmount }}
-          </div>
-          
-          <div v-if="item.title === '放行退回開狀申請單據及電文'">            
-            <span>申請人編號：</span>{{ item.applicantId }}
-            <br>
-            <span>申請人金額：</span>{{ item.applicantAmount }}
-            <br>
-            <span>開狀通知書號碼：</span>{{ item.lcNoticeNo }}
-          </div>
-        </template>
-      </v-data-table>
-    </v-card>
-
-    <TablePagination
-      v-model:items-per-page="pageOptions.itemsPerPage"
-      v-model:page="pageOptions.page"
-      class="mx-4"
-      :total-items="totalCount"
+    <!-- 列表清冊 -->
+    <InboxList
+      v-model:selected-items="selectedItems"
+      v-model:page-options="pageOptions"
+      :table-items="tableItems"
+      :total-count="totalCount"
       :total-pages="totalPages"
-      @update:items-per-page="handleItemsPerPageChange"
-      @update:page="handlePageChange"
+      :table-height="tableHeight"
+      :is-loading="isLoading"
+      @delete-selected="deleteSelected"
+      @update:handle-items-per-page-change="handleItemsPerPageChange"
+      @update:handle-page-change="handlePageChange"
     />
+
     <!-- 共用元件 -->
     <CommonOverlay :overlay="isLoading" />
     <PromptDialog
@@ -130,19 +50,21 @@
 <script setup lang="ts">
   import { computed } from 'vue'
   import { useInbox } from '@/composables/useInbox'
-  import TablePagination from '@/components/common/TablePagination.vue'
+  import InboxList from '@/components/InboxList.vue'
+  // import TablePagination from '@/components/common/TablePagination.vue'
   import CommonOverlay from '@/components/common/CommonOverlay.vue'
   import PromptDialog from '@/components/common/PromptDialog.vue'
   
   const {
-    isLoading,    
+    isLoading,
+    // 訊息通知相關狀態與方法
     messageDialog,
     messageWidth,
     messageTitle,
     message,
     messageStatus,
     isConfirmBtn,
-    tableHeaders,    
+    // 列表及分頁相關
     selectedItems,
     tableItems,
     pageOptions,
