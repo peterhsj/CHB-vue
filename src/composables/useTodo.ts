@@ -6,7 +6,7 @@ import { useMenu } from '@/composables/useMenu'
 
 const { authType } = useAuthStore()  
 
-interface ListItem {
+export interface ListItem {
   id: number
   title: string
   path?: string

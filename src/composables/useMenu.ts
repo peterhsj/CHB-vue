@@ -71,7 +71,7 @@ const accordionMenu: Record<AuthType, MenuItem[]> = {
             { text: '放行註銷申請單據', value: 'importReleaseCancelApp' },
             { text: '放行到單前通知', value: 'importReleasePreNotice' },
             { text: '放行到單通知書', value: 'importReleaseNotice' },
-            { text: '重新傳送單據/電文', value: 'importResendDocument' },
+            // { text: '重新傳送單據/電文', value: 'importResendDocument' },
           ],
         },
         {
@@ -94,18 +94,10 @@ const accordionMenu: Record<AuthType, MenuItem[]> = {
           ],
         },
         {
-          text: '系統管理作業',
-          value: 'importSystem',
+          text: '資料維護作業',
+          value: 'importCommonDataMaintenance',
           subMenu: [
-            { text: '角色權限維護', value: 'importRolePermission' },
-            { text: '個人資料維護', value: 'importPersonalData' },
-            { text: '企業資料維護', value: 'importCorporateData' },
-            { text: '分行資料維護', value: 'importBranchData' },
-            { text: '系統參數維護', value: 'importSystemParameters' },
             { text: '退件原因維護', value: 'importReturnReason' },
-            { text: '使用者存取記錄', value: 'importUserAccessLog' },
-            { text: '目前線上人數', value: 'importCurrentOnlineUsers' },
-            { text: '帳號管理', value: 'importAccountManagement' },
           ],
         },
       ],
@@ -114,6 +106,13 @@ const accordionMenu: Record<AuthType, MenuItem[]> = {
       text: '出口業務',
       value: 'export',
       subMenu: [
+        {
+          text: '受理作業',
+          value: 'exportAccept',
+          subMenu: [
+            { text: '客戶憑證確認', value: 'exportAcceptCustomerProof' },
+          ],
+        },
         {
           text: '繕製作業',
           value: 'exportReproduce',
@@ -143,6 +142,7 @@ const accordionMenu: Record<AuthType, MenuItem[]> = {
             { text: '查詢修狀通知書', value: 'exportQueryAmendNotice' },
             { text: '查詢出口押匯帳務資料', value: 'exportQueryDraft' },
             { text: '查詢餘額註銷通知書', value: 'exportQueryCancelNotice' },
+            { text: '查詢出口結匯匯票資料', value: 'exportQuerySettlementBill' },
           ],
         },
         {
@@ -154,207 +154,48 @@ const accordionMenu: Record<AuthType, MenuItem[]> = {
           ],
         },
         {
-          text: '系統管理作業',
-          value: 'exportSystem',
+          text: '資料維護作業',
+          value: 'importCommonDataMaintenance',
           subMenu: [
-            { text: '角色權限維護', value: 'exportRolePermission' },
-            { text: '個人資料維護', value: 'exportPersonalData' },
-            { text: '企業資料維護', value: 'exportCorporateData' },
-            { text: '分行資料維護', value: 'exportBranchData' },
-            { text: '系統參數維護', value: 'exportSystemParameters' },
-            { text: '使用者存取記錄', value: 'exportUserAccessLog' },
-            { text: '目前線上人數', value: 'exportCurrentOnlineUsers' },
-            { text: '帳號管理', value: 'exportAccountManagement' },
-            { text: '重新傳送單據/電文', value: 'exportResendDocuments' },
-            { text: '刪除出口單據', value: 'exportDeleteDocuments' },
+            { text: '退件原因維護', value: 'importReturnReason' },
           ],
         },
+      ],
+    },    
+    {
+      text: '管理業務',
+      value: 'management',
+      subMenu: [
+        {
+          text: '系統管理作業',
+          value: 'system',
+          subMenu: [
+            { text: '角色權限維護', value: 'rolePermission' },
+            { text: '帳號維護', value: 'accountMaintenance' },
+            { text: '個人資料維護', value: 'personalData' },
+            { text: '企業資料維護', value: 'corporateData' },
+            { text: '分行資料維護', value: 'branchData' },
+            { text: '系統參數維護', value: 'systemParameters' },
+          ],
+        },
+        { text: '使用者存取記錄', value: 'userAccessLog' },
+        { text: '目前線上人數', value: 'currentOnlineUsers' },
+        { text: '重新傳送單據/電文', value: 'resendDocuments' },
+        { text: '刪除出口單據', value: 'deleteDocuments' },
       ],
     },
   ],
   BS: [
-    {
-      text: '申請作業',
-      value: 'app',
-      subMenu: [
-        {
-          text: '當日沖正交易',
-          value: 'sameDayReversal',
-          subMenu: [
-            { text: '開狀沖正(EC)', value: 'amendLcApp' },
-            { text: '修狀沖正(EC)', value: 'currentAmendApp' },
-            { text: '註銷信用狀沖正(EC)', value: 'currentCancelApp' },
-            { text: '押匯沖正(EC)', value: 'currentAmendDraftApp' },
-            { text: '利率約定改貸沖正(EC)', value: 'loanTermModification' },
-            { text: '補收開狀手續費沖正(EC)', value: 'chargeAmendLc' },
-          ],
-        },
-        {
-          text: '當日調整帳務',
-          value: 'sameDayAdjustment',
-          subMenu: [
-            { text: '開狀申請當日調整帳務', value: 'lcAdjustment' },
-            { text: '修改申請當日調整帳務', value: 'amendAdjustment' },
-            { text: '註銷申請當日調整帳務', value: 'cancelAdjustment' },
-            { text: '押匯申請當日調整帳務', value: 'draftAdjustment' },
-          ],
-        },
-        { text: 'CDS平台-過期信用狀主動註銷', value: 'expiredLc' },
-      ],
-    },
-    {
-      text: '編審作業',
-      value: 'review',
-      subMenu: [
-        { text: '開狀申請書', value: 'reviewLcApp' },
-        { text: '修改申請書', value: 'reviewAmendApp' },
-        { text: '註銷申請/切結書', value: 'reviewCancelApp' },
-        { text: '押匯申請', value: 'reviewDraftApp' },
-        { text: '利率約定(改貸)', value: 'reviewInterestRate' },
-      ],
-    },
-    {
-      text: '查詢作業',
-      value: 'query',
-      subMenu: [
-        { text: '開狀申請書', value: 'queryLcApp' },
-        { text: '修改申請書', value: 'queryAmendApp' },
-        { text: '修改通知書', value: 'queryAmendNotice' },
-        { text: '註銷申請/切結書', value: 'queryCancelApp' },
-        { text: '信用狀', value: 'queryLc' },
-        { text: '押匯申請', value: 'queryDraft' },
-        { text: '主管核准開狀紀錄', value: 'queryMarLc' },
-        { text: '主管核准押匯紀錄', value: 'queryMarDraft' },
-        { text: '未結案信用狀額度與保證金', value: 'queryOutstandLc' },
-        { text: '利率約定 (改貸)', value: 'queryInterestRate' },
-        { text: '主管審核異常', value: 'querySar' },
-        { text: '會計帳務分錄', value: 'queryAccount' },
-      ],
-    },
-    {
-      text: '電子押匯提示作業',
-      value: 'prompt',
-      subMenu: [
-        { text: '押匯提示', value: 'promptDraft' },
-        { text: '重新提示', value: 'rePromptDraft' },
-        { text: '網銀押匯提示', value: 'webPromptDraft' },
-      ],
-    },
-    {
-      text: '補收開狀手續費作業',
-      value: 'amend',
-      subMenu: [
-        { text: '補收開狀手續費', value: 'chargeLc' },
-      ],
-    },
-    {
-      text: '客戶管理作業',
-      value: 'customer',
-      subMenu: [
-        { text: '設定客戶群組', value: 'setGroup' },
-        // { text: '受益人資料', value: 'setBeneficiary' },
-        { text: '受益人資料', value: 'managerBeneficiary' },
-      ],
-    },
-    {
-      text: '會員管理作業',
-      value: 'member',
-      subMenu: [
-        { text: '個人設定', value: 'managerPersonal' },
-      ],
-    },
+    
   ],
   SM: [
-    {
-      text: '查詢作業',
-      value: 'query',
-      subMenu: [
-        { text: '存取記錄', value: 'queryAccessLog' },
-      ],
-    },
-    {
-      text: '電子押匯提示作業',
-      value: 'prompt',
-      subMenu: [
-        { text: '押匯拒絕原因維護', value: 'draftRejection' },
-      ],
-    },
-    {
-      text: '會員管理作業',
-      value: 'member',
-      subMenu: [
-        { text: '分行管理', value: 'managerBranch' },
-        { text: '會員管理', value: 'managerMember' },
-        { text: '個人設定', value: 'managerPersonal' },
-      ],
-    },
+    
   ],
   MB: [
-    {
-      text: '申請作業',
-      value: 'app',
-      subMenu: [
-        { text: '台塑押匯補登資料匯入', value: 'fpcCadSdi' },
-      ],
-    },
-    {
-      text: '查詢作業',
-      value: 'query',
-      subMenu: [
-        { text: '開狀申請書', value: 'queryLcApp' },
-        { text: '修改申請書', value: 'queryAmendApp' },
-        { text: '修改通知書', value: 'queryAmendNotice' },
-        { text: '註銷申請/切結書', value: 'queryCancelApp' },
-        { text: '信用狀', value: 'queryLc' },
-        { text: '押匯申請', value: 'queryDraft' },
-        { text: '主管核准開狀紀錄', value: 'queryMarLc' },
-        { text: '主管核准押匯紀錄', value: 'queryMarDraft' },
-        { text: '未結案信用狀額度與保證金', value: 'queryOutstandLc' },
-        { text: '分行信用狀暨押匯筆數金額', value: 'queryBlcAmount' },
-        { text: '利率約定 (改貸)', value: 'queryInterestRate' },
-        { text: '會計帳務分錄', value: 'queryAccount' },
-        { text: '存取記錄', value: 'queryAccessLog' },
-        { text: '國內信用狀押匯手續費優待明細表', value: 'queryNegotiationFee' },
-        { text: '受益人分行信用狀暨押匯筆數金額', value: 'queryBeneficiaryBlcAmount' },
-        { text: 'Client連線狀態', value: 'queryClientConnect' },
-        { text: '國內信用狀開狀手續費', value: 'queryDomesticLcFee' },
-        { text: '信用狀手續費明細表', value: 'queryLcFeeDetail' },
-        { text: '台塑網通訊傳輸排程檢視', value: 'queryFpcCtsv' },
-        { text: '台塑信用狀統計表', value: 'queryFpcLcRpt' },
-      ],
-    },
-    {
-      text: '客戶管理作業',
-      value: 'customer',
-      subMenu: [
-        { text: '台塑受益人事業部建檔匯入', value: 'fpcBenBuImp' },
-      ],
-    },
-    {
-      text: '會員管理作業',
-      value: 'member',
-      subMenu: [
-        { text: '個人設定', value: 'managerPersonal' },
-        { text: '受益人資料維護', value: 'managerBeneficiary' },
-      ],
-    },
-    {
-      text: '特別指示條款設定作業',
-      value: 'specialInstruction',
-      subMenu: [
-        { text: '設定客戶特別指示條款', value: 'settingSi' },
-      ],
-    },
+    
   ],
   BM: [
-    {
-      text: '會員管理作業',
-      value: 'member',
-      subMenu: [
-        { text: '會員管理', value: 'managerMember' },
-        { text: '個人設定', value: 'managerPersonal' },
-      ],
-    },
+    
   ],
 }
 

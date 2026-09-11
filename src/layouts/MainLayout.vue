@@ -69,7 +69,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-main>
+    <v-main class="chb__layout--main">
       <div class="content-wrap">
         <router-view />
       </div>

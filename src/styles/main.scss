@@ -1,5 +1,5 @@
 @use "./variables.scss";
-$default-yellow: #ffcf00;
+$default-yellow: #FFCF00;
 $default-red: #D84315;
 
 html,
@@ -40,6 +40,10 @@ body {
       background-color: $default-yellow;
       border-bottom: 5px solid $default-red;
     }
+
+    &--main {
+      background-color: #fff;
+    }
   }
 
   &__logo {
@@ -50,6 +54,55 @@ body {
       letter-spacing: 0.08rem;
       color: #333;
     }
+  }
+
+  &__login {
+    &--wrapper {
+      // 🎨 核心色票定義
+      --ink: #1a1917;       // 極深墨黑（適合文字，帶有極低飽和度的暖調）
+      --ink-soft: #5c5343;  // 柔和深灰（適合次要文字或邊框）
+      --paper: #fffdf9;     // 亮米白（基底紙張色）
+      --sand: #fbf3e3;      // 淺沙黃（輔助背景色）
+      
+      // 🌟 核心三色系
+      --gold: #f4be37;      // 主色系：亮黃色
+      --orange: #e65c2e;    // 搭配色：橘紅色
+      --blue: #2b6cb0;      // 搭配色：深藍色
+      
+      height: 100dvh;
+      padding: 0;
+      
+      // 🎯 透過多重混色（Mesh Gradient）打造不規則液態漸層
+      background-color: #ebe3df; // 最底層基底色
+      background-image:
+        /* 1. 中心核心黃色（稍微往左上偏，縮小範圍） */
+        radial-gradient(circle at 50% 45%, #fce8a6 0%, #f4be37 15%, transparent 55%),
+        
+        /* 2. 強烈的大範圍橘紅（往右下與中心延伸，大範圍渲染） */
+        radial-gradient(circle at 55% 55%, rgba(230, 92, 46, 0.7) 0%, rgba(230, 92, 46, 0.4) 45%, transparent 80%),
+        
+        /* 3. 次要橘紅（從左下補光，讓形狀不規則） */
+        radial-gradient(circle at 25% 70%, rgba(214, 69, 17, 0.4) 0%, transparent 60%),
+        
+        /* 4. 外圍藍色氛圍（從右上與左下包抄，與暖色撞色） */
+        radial-gradient(circle at 80% 25%, rgba(43, 108, 176, 0.35) 0%, transparent 65%),
+        radial-gradient(circle at 15% 85%, rgba(43, 108, 176, 0.2) 0%, transparent 50%);
+    }
+    // &--wrapper {
+    //   --ink: #1f1a14;
+    //   --ink-soft: #3d362c;
+    //   --paper: #f6f1ea;
+    //   --sand: #efe6d8;
+    //   --gold: #c79042;
+    //   --sage: #50625b;
+    //   --teal: #2f6b6b;
+    //   height: 100dvh;
+    //   background:
+    //     radial-gradient(circle at 80% 20%, rgba(190, 91, 34, 0.18), transparent 55%),
+    //     radial-gradient(circle at 10% 80%, rgba(18, 103, 201, 0.22), transparent 45%),
+    //     linear-gradient(140deg, #fbf7f0 0%, #efe6d8 60%, #e6e0d2 100%);
+    //   padding: 0;
+    // }
   }
 
   &__bg {
@@ -111,10 +164,8 @@ body {
   }
 
   &__menuItem {
-    // background-color: #fff !important;
-
     &--active {
-      background-color: #fff !important;
+      background-color: #d7fbf5 !important; // #fffab1
     }
   }
   
@@ -155,7 +206,8 @@ body {
     }
     
     th {
-      font-size: 1rem;
+      font-size: 1rem;      
+      font-weight: 700;
     }
 
     // Table 編排
@@ -282,7 +334,7 @@ body {
 
 .mdi-chevron-up::before {
     content: "\F0143";
-    -webkit-text-stroke: 1px $default-red; /* 寬度可依需求調整為 0.5px, 1.5px 等 */
+    -webkit-text-stroke: 1px currentColor; /* 寬度可依需求調整為 0.5px, 1.5px 等 */
 }
 
 .mdi-chevron-down::before {
